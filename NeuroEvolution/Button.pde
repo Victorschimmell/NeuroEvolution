@@ -1,5 +1,5 @@
 class Button {
-
+  
   PVector pos; //position
   float w, h; //size
   boolean selected; //is the button selected / on? true/false
@@ -9,6 +9,7 @@ class Button {
   int id;
 
   Button(int x, int y, int w, int h, String input, int id) {
+    noStroke();
     rectMode(CORNER);
 
     pos = new PVector(x, y);
@@ -34,7 +35,7 @@ class Button {
 
     fill(currentColor);
     rect(pos.x-w/2, pos.y-h/2, w, h);
-
+    textSize(40);
     textAlign(CENTER, CENTER);
     fill(255);
     text(label, pos.x, pos.y);

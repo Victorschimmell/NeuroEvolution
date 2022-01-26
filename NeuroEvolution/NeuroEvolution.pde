@@ -10,7 +10,7 @@ void setup() {
   frameRate(240);
   trackImage = loadImage("Track.png");
 
-  btn1 = new Button(width/2, height/2, 100, 40, "Start", 1);
+  btn1 = new Button(width/2, height/2, 200, 80, "Start", 1);
 }
 
 void draw() {
