@@ -2,10 +2,13 @@
 int menu = 1;
 Button btn1;
 
+PImage trackImage;
+
 
 void setup() {
-  size(640, 360);
+  size(1000, 800);
   frameRate(240);
+  trackImage = loadImage("Track.png");
 
   btn1 = new Button(width/2, height/2, 100, 40, "Start", 1);
 }
@@ -20,7 +23,7 @@ void draw() {
     break;
   case 2:
     //Do something
-    background(255);
+    image(trackImage,0,0);
     drawEvolution();
 
     break;
