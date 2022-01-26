@@ -43,5 +43,4 @@ void drawMenu() {
 
 void drawEvolution(){
   fill(1);
-  text("Hello World!", width/2, height/2);
 }
