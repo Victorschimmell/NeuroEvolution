@@ -52,7 +52,7 @@ class SensorSystem {
     } else {
       fill(0, clockWiseRotationFrameCounter, 0);
     }
-    ellipse(anchorPos.x, anchorPos.y, 10, 10);
+    //ellipse(anchorPos.x, anchorPos.y, 10, 10);
   }
 
   void updateSensorsignals(PVector pos, PVector vel) {
