@@ -2,7 +2,7 @@ class Car {
   //Bil - indeholder position & hastighed & "tegning"
   PVector pos = new PVector(60, 232);
   PVector vel = new PVector(0, 5);
-  int n = int(random(1,7));
+  int n = int(random(1,5.9));
   
   void turnCar(float turnAngle){
     vel.rotate(turnAngle);

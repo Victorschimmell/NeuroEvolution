@@ -29,9 +29,9 @@ class SensorSystem {
   int     lapTimeInFrames       = 10000;
 
   void displaySensors() {
-    strokeWeight(0.5);
+    /*strokeWeight(0.5);
     if (frontSensorSignal) { 
-      fill(255, 0, 0);
+     fill(255, 0, 0);
       ellipse(anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y, 8, 8);
     }
     if (leftSensorSignal) { 
@@ -53,6 +53,7 @@ class SensorSystem {
       fill(0, clockWiseRotationFrameCounter, 0);
     }
     //ellipse(anchorPos.x, anchorPos.y, 10, 10);
+    */
   }
 
   void updateSensorsignals(PVector pos, PVector vel) {
