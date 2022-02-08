@@ -21,7 +21,7 @@ void draw() {
   carSystem.updateAndDisplay();
   
   //TESTKODE: Frastortering af dårlige biler, for hver gang der går 200 frame - f.eks. dem der kører uden for banen
-  /* if (frameCount%200==0) {
+  if (frameCount%200==0) {
       println("FJERN DEM DER KØRER UDENFOR BANEN frameCount: " + frameCount);
       for (int i = carSystem.CarControllerList.size()-1 ; i >= 0;  i--) {
         SensorSystem s = carSystem.CarControllerList.get(i).sensorSystem;
@@ -29,6 +29,6 @@ void draw() {
           carSystem.CarControllerList.remove(carSystem.CarControllerList.get(i));
          }
       }
-    }*/
+    }
     //
 }
