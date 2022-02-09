@@ -33,7 +33,7 @@ class CarController {
   
   void display(){
     bil.displayCar();
-    sensorSystem.displaySensors();
+   // sensorSystem.displaySensors();
   }
   
   
