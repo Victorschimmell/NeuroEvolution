@@ -1,6 +1,6 @@
 //
 int menu = 1;
-Button btn1;
+Button btn1, btn2;
 
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
@@ -31,7 +31,10 @@ void setup() {
   recordtime = lifetime;
 
   btn1 = new Button(width/2, height/2, 200, 80, "Start", 1);
+
   carSystem = new Population(populationSize, mutationrate);
+
+  btn2 = new Button(width/2, height/2+100, 200, 80, "Options", 2);
 }
 
 void draw() {
@@ -48,6 +51,9 @@ void draw() {
     drawEvolution();
 
     break;
+  case 3:
+    drawCustom();
+    break;
 
   default:
     println("Something gone bad");
@@ -56,10 +62,17 @@ void draw() {
 
 void mouseClicked() {
   btn1.clicked();
+  btn2.clicked();
 }
 
 void drawMenu() {
   btn1.display();
+  btn2.display();
+}
+
+void drawCustom(){
+  background(255);
+  
 }
 
 void drawEvolution(){
