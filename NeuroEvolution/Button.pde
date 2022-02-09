@@ -58,6 +58,7 @@ class Button {
           menu = 2;
           break;
         case 2:
+          menu = 3;
           // code block
           
           break;
