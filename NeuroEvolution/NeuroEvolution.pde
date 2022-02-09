@@ -8,15 +8,30 @@ PImage car_1, car_2, car_3, car_4, car_5;
 int populationSize  = 100;     
 
 //CarSystem: Indholder en population af "controllere" 
-CarSystem carSystem = new CarSystem(populationSize);
+Population carSystem;
+
+int lifecycle;          // Timer for cycle of generation
+int recordtime;         // Fastest time to target
+int lifetime;  // How long should each generation live
+float mutationrate = 0.02;
+float varians              = 2; //hvor stor er variansen på de tilfældige vægte og bias
+
 
 
 void setup() {
   size(1000, 800);
-  frameRate(240);
+  frameRate(60);
   loadImages();
+  
+  // The number of cycles we will allow a generation to live
+  lifetime = 300;
+
+  // Initialize variables
+  lifecycle = 0;
+  recordtime = lifetime;
 
   btn1 = new Button(width/2, height/2, 200, 80, "Start", 1);
+  carSystem = new Population(populationSize, mutationrate);
 }
 
 void draw() {
@@ -48,7 +63,21 @@ void drawMenu() {
 }
 
 void drawEvolution(){
-  carSystem.updateAndDisplay();
+  
+   if (lifecycle < lifetime) {
+     carSystem.updateAndDisplay();
+    if ((lifecycle < recordtime)) {
+      recordtime = lifecycle;
+    }
+    lifecycle++;
+    // Otherwise a new generation
+  } 
+  else {
+    lifecycle = 0;
+    carSystem.fitness();
+    carSystem.selection();
+    carSystem.reproduction();
+  }
 }
 
 

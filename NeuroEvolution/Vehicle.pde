@@ -3,6 +3,7 @@ class Car {
   PVector pos;
   PVector vel;
   int n;
+  float angle;
   
   Car(PVector startPos, PVector Hastighed){
     this.n = int(random(1,5.9));
@@ -18,6 +19,7 @@ class Car {
   }
 
   void displayCar() {
+    
     if(pos.y>height/2){
       pushMatrix();
       scale(-1,1);
@@ -27,9 +29,12 @@ class Car {
       image(pickCar(n), pos.x, pos.y);
     }
   }
+    
+    
   
   void update() {
     pos.add(vel);
   }
+  
   
 }

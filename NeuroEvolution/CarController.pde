@@ -1,12 +1,23 @@
 class CarController {
   //Forbinder - Sensorer & Hjerne & Bil
-  float varians              = 2; //hvor stor er variansen på de tilfældige vægte og bias
-  Car bil                    = new Car(new PVector(60, 232), new PVector(0, 5));
-  NeuralNetwork hjerne       = new NeuralNetwork(varians); 
+  Car bil = new Car(new PVector(60, 232), new PVector(0, 5));
+  NeuralNetwork hjerne;
   SensorSystem  sensorSystem = new SensorSystem();
+  
+  float fitness;
+  
+  CarController(){
+    hjerne = new NeuralNetwork(varians); 
+    
+  }
+  
+  CarController(float[] DNA1, float[] DNA2){
+    
+    hjerne = new NeuralNetwork(DNA1, DNA2); 
+  }
       
   void update() {
-    //1.)opdtarer bil 
+    //1.)opdtarer bil   
     bil.update();
     //2.)opdaterer sensorer    
     sensorSystem.updateSensorsignals(bil.pos, bil.vel);
@@ -22,6 +33,21 @@ class CarController {
   
   void display(){
     bil.displayCar();
-    sensorSystem.displaySensors();
+    //sensorSystem.displaySensors();
   }
+  
+  
+  float getFitness(){
+    fitness = sensorSystem.senFitness();
+   return fitness;
+  }
+  
+  float[] getDNA1(){
+    return hjerne.weights;
+  }
+    float[] getDNA2(){
+    return hjerne.biases;
+  }
+  
+ 
 }

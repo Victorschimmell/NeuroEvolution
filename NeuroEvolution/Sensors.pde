@@ -27,9 +27,13 @@ class SensorSystem {
   boolean lastGreenDetection;
   int     lastTimeInFrames      = 0;
   int     lapTimeInFrames       = 10000;
+  
+  float SensorFitness;
+  
+
 
   void displaySensors() {
-    /*strokeWeight(0.5);
+    strokeWeight(0.5);
     if (frontSensorSignal) { 
      fill(255, 0, 0);
       ellipse(anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y, 8, 8);
@@ -53,7 +57,7 @@ class SensorSystem {
       fill(0, clockWiseRotationFrameCounter, 0);
     }
     //ellipse(anchorPos.x, anchorPos.y, 10, 10);
-    */
+    
   }
 
   void updateSensorsignals(PVector pos, PVector vel) {
@@ -68,14 +72,18 @@ class SensorSystem {
     }
     //Laptime calculation
     boolean currentGreenDetection =false;
-    if (red(color_car_position)==0 && blue(color_car_position)==0 && green(color_car_position)!=0) {//den grønne målstreg er detekteret
+    
+
+    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)!=0) {//den grønne målstreg er detekteret
       currentGreenDetection = true;
+       lastGreenDetection = currentGreenDetection; //Husker om der var grønt sidst
     }
+    
     if (lastGreenDetection && !currentGreenDetection) {  //sidst grønt - nu ikke -vi har passeret målstregen 
       lapTimeInFrames = frameCount - lastTimeInFrames; //LAPTIME BEREGNES - frames nu - frames sidst
       lastTimeInFrames = frameCount;
     }   
-    lastGreenDetection = currentGreenDetection; //Husker om der var grønt sidst
+   
     //count clockWiseRotationFrameCounter
     centerToCarVector.set((height/2)-pos.x, (width/2)-pos.y);    
     float currentRotationAngle =  centerToCarVector.heading();
@@ -98,5 +106,19 @@ class SensorSystem {
     sensorVectorLeft.rotate(-sensorAngle);
     sensorVectorRight.set(sensorVectorFront);
     sensorVectorRight.rotate(sensorAngle);
+  }
+  
+  float senFitness(){
+    SensorFitness = 1000/PVector.dist(anchorPos, new PVector(width, height/2));
+    
+    SensorFitness = pow(SensorFitness, 4);
+    
+    if(whiteSensorFrameCount > 0) SensorFitness*=0.1;
+    if(lastGreenDetection) SensorFitness*=0.1;
+    
+    
+    
+    
+    return SensorFitness;
   }
 }
