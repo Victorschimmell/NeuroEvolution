@@ -110,14 +110,11 @@ class SensorSystem {
   
   float senFitness(){
     SensorFitness = 1000/PVector.dist(anchorPos, new PVector(width, height/2));
-    
+
     SensorFitness = pow(SensorFitness, 4);
-    
-    if(whiteSensorFrameCount > 0) SensorFitness*=0.1;
-    if(lastGreenDetection) SensorFitness*=0.1;
-    
-    
-    
+
+    if(whiteSensorFrameCount > 0) SensorFitness*=0.01;
+      
     
     return SensorFitness;
   }

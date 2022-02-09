@@ -24,17 +24,24 @@ class Population {
     for (CarController controller : population) {
       controller.update();
     }
-
+    
+    if(showAll){
     //2.) Tegner tilsidst - så sensorer kun ser banen og ikke andre biler!
     for (CarController controller : population) {
       controller.display();
+    } 
+    } else{
+    
+    population.get(recordholder).display();
     }
+    
   }
   
     void fitness() {
     for (int i = 0; i < population.size(); i++) {
       population.get(i).getFitness();
     }
+    println("R: " + getMaxFitness() + " : RH : " + recordholder);
   }
   
    void selection() {
@@ -43,6 +50,7 @@ class Population {
 
     // Calculate total fitness of whole population
     float maxFitness = getMaxFitness();
+    
 
     // Calculate fitness for each member of the population (scaled to value between 0 and 1)
     // Based on fitness, each member will get added to the mating pool a certain number of times
@@ -80,8 +88,8 @@ class Population {
       population.set(i, new CarController(childDNA1, childDNA2));
     }
     generations++;
-    println(generations);
-    println("PopSize : " + population.size());
+    println("Generation: " + generations);
+    
   }
   
     int getGenerations() {
@@ -93,18 +101,20 @@ class Population {
     for (int i = 0; i < population.size(); i++) {
        if(population.get(i).getFitness() > record) {
          record = population.get(i).getFitness();
+         recordholder = i;
        }
     }
+    
     return record;
   }
   
     float[] crossover(float[] partner1, float[] partner2) {
     float[] child = new float[partner1.length];
     // Pick a midpoint
-    int crossover = int(random(partner1.length));
+    int crossoverint = int(random(partner1.length));
     // Take "half" from one and "half" from the other
     for (int i = 0; i < child.length; i++) {
-      if (i > crossover) child[i] = partner1[i];
+      if (i > crossoverint) child[i] = partner1[i];
       else               child[i] = partner2[i];
     }    
     float[] newgenes = child;

@@ -15,8 +15,9 @@ int recordtime;         // Fastest time to target
 int lifetime;  // How long should each generation live
 float mutationrate = 0.02;
 float varians              = 2; //hvor stor er variansen på de tilfældige vægte og bias
+int recordholder;
 
-
+boolean showAll;
 
 void setup() {
   size(1000, 800);
@@ -78,6 +79,7 @@ void drawCustom(){
 void drawEvolution(){
   
    if (lifecycle < lifetime) {
+     carSystem.getMaxFitness();
      carSystem.updateAndDisplay();
     if ((lifecycle < recordtime)) {
       recordtime = lifecycle;
@@ -129,4 +131,15 @@ PImage pickCar(int n){
   ximage.resize(80,40);
   } 
   return ximage;
+}
+
+void keyPressed(){
+  
+  if(key== 'n'){
+    if(showAll) showAll = false; 
+    
+  } else{
+   showAll = true; 
+  }
+  
 }
