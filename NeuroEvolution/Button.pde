@@ -14,10 +14,14 @@ class Button {
 
     pos = new PVector(x, y);
     this.w = w;
-    this.h = h;
+    
+   this.h = h;
+    
 
     label = input;
     selected = false;
+    
+    
 
     highlighted = color(60); 
     defaultColor = color(100); //slightly darker?
