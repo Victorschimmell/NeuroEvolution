@@ -123,6 +123,7 @@ class Population {
   void mutate(float m, float[] child) {
     for (int i = 0; i < child.length; i++) {
       if (random(1) < m) {
+        println("mutated");
         child[i] = random(-varians,varians);
       }
     }

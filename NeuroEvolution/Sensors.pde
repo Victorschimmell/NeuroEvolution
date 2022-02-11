@@ -24,11 +24,14 @@ class SensorSystem {
   float   clockWiseRotationFrameCounter  = 0;
 
   //lapTime calculation
-  boolean lastGreenDetection;
+  boolean GreenDetection;
+  boolean blueDe;
+  boolean redDe;
   int     lastTimeInFrames      = 0;
   int     lapTimeInFrames       = 10000;
   
   float SensorFitness;
+  float SensorFitnessUpdate;
   
 
 
@@ -73,13 +76,26 @@ class SensorSystem {
     //Laptime calculation
     boolean currentGreenDetection =false;
     
+        if(red(color_car_position) == 63 && blue(color_car_position) == 204 && green(color_car_position) == 72){
+      blueDe = true;
+      SensorFitnessUpdate+=3;
+    }
+    if(red(color_car_position) == 236 && green(color_car_position) == 28 && blue(color_car_position) == 36 && blueDe == true){
+      redDe = true;
+      SensorFitnessUpdate+=3;
+      
+    }
 
-    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)!=0) {//den grønne målstreg er detekteret
+    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && blueDe == true && redDe == true) {//den grønne målstreg er detekteret
       currentGreenDetection = true;
-       lastGreenDetection = currentGreenDetection; //Husker om der var grønt sidst
+      SensorFitnessUpdate+=3;
+      GreenDetection = currentGreenDetection; //Husker om der var grønt sidst
+    }
+    if(red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && !blueDe && !redDe ){
+      SensorFitnessUpdate-=3;
     }
     
-    if (lastGreenDetection && !currentGreenDetection) {  //sidst grønt - nu ikke -vi har passeret målstregen 
+    if (GreenDetection && !currentGreenDetection) {  //sidst grønt - nu ikke -vi har passeret målstregen 
       lapTimeInFrames = frameCount - lastTimeInFrames; //LAPTIME BEREGNES - frames nu - frames sidst
       lastTimeInFrames = frameCount;
     }   
@@ -109,13 +125,14 @@ class SensorSystem {
   }
   
   float senFitness(){
-    SensorFitness = 1/PVector.dist(anchorPos, new PVector(width, height/2));
+    SensorFitness= 1;
+    SensorFitness=SensorFitnessUpdate/(lapTimeInFrames);
     
-    SensorFitness = pow(SensorFitness, 4);
-
-    if(this.whiteSensorFrameCount > 0) SensorFitness*=0.01;
-    if(whiteSensorFrameCount <=0) SensorFitness*=4;
+    SensorFitness=pow(SensorFitness, 4); // To make the good even better, make thier genes much more
     
+    if(this.whiteSensorFrameCount > 0) SensorFitness*=0.1; // if whitespace touched remove 90% of fitness
+    if(whiteSensorFrameCount <=0) SensorFitness*=2; // if no whitespace detected * 2 fitness
+   
     return SensorFitness;
   }
 }

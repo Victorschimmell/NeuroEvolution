@@ -5,6 +5,7 @@ class CarController {
   SensorSystem  sensorSystem = new SensorSystem();
   
   float fitness;
+  float turnAngle = 0;
   
   CarController(){
     hjerne = new NeuralNetwork(varians); 
@@ -22,7 +23,7 @@ class CarController {
     //2.)opdaterer sensorer    
     sensorSystem.updateSensorsignals(bil.pos, bil.vel);
     //3.)hjernen beregner hvor meget der skal drejes
-    float turnAngle = 0;
+    
     float x1 = int(sensorSystem.leftSensorSignal);
     float x2 = int(sensorSystem.frontSensorSignal);
     float x3 = int(sensorSystem.rightSensorSignal);    

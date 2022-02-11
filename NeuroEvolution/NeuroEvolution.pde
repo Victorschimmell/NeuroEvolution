@@ -13,8 +13,8 @@ Population carSystem;
 int lifecycle;          // Timer for cycle of generation
 int recordtime;         // Fastest time to target
 int lifetime;  // How long should each generation live
-float mutationrate = 0.02;
-float varians              = 2; //hvor stor er variansen på de tilfældige vægte og bias
+float mutationrate = 0.005;
+float varians  = 2; //hvor stor er variansen på de tilfældige vægte og bias
 int recordholder;
 
 boolean showAll;
@@ -25,7 +25,7 @@ void setup() {
   loadImages();
   
   // The number of cycles we will allow a generation to live
-  lifetime = 300;
+  lifetime = 900;
 
   // Initialize variables
   lifecycle = 0;
