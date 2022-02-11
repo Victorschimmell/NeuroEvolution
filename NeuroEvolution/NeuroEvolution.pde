@@ -5,7 +5,7 @@ Button btn1, btn2;
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 100;     
+int populationSize  = 200;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;
