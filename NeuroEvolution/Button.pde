@@ -56,6 +56,8 @@ class Button {
         case 1:
           // code block
           menu = 2;
+          image(trackImage,width/2,height/2);
+          scanMap();
           break;
         case 2:
           menu = 3;

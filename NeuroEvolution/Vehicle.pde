@@ -21,7 +21,6 @@ class Car {
   }
 
   void displayCar() {
-    /*
     if(pos.y>height/2){
       pushMatrix();
       scale(-1,1);
@@ -29,12 +28,13 @@ class Car {
       popMatrix();
     }else{
       image(pickCar(n), pos.x, pos.y);
-    }*/
+    }
+    
 
-    stroke(1);
+    /*stroke(1);
     fill(255);
     circle(pos.x, pos.y, r);
-    
+    */
   }
     
     
