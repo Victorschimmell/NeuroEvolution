@@ -78,20 +78,24 @@ class SensorSystem {
     
         if(red(color_car_position) == 63 && blue(color_car_position) == 204 && green(color_car_position) == 72){
       blueDe = true;
-      SensorFitnessUpdate+=3;
+      SensorFitnessUpdate+=100;
     }
     if(red(color_car_position) == 236 && green(color_car_position) == 28 && blue(color_car_position) == 36 && blueDe == true){
       redDe = true;
-      SensorFitnessUpdate+=3;
+      SensorFitnessUpdate+=100;
       
     }
 
     if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && blueDe == true && redDe == true) {//den grønne målstreg er detekteret
       currentGreenDetection = true;
-      SensorFitnessUpdate+=3;
+      SensorFitnessUpdate+=100;
       GreenDetection = currentGreenDetection; //Husker om der var grønt sidst
     }
     if(red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && !blueDe && !redDe ){
+      SensorFitnessUpdate-=3;
+    }
+    
+    if(red(color_car_position)==236 && blue(color_car_position)==36 && green(color_car_position)==28 && !blueDe ){
       SensorFitnessUpdate-=3;
     }
     
@@ -125,7 +129,6 @@ class SensorSystem {
   }
   
   float senFitness(){
-    SensorFitness= 1;
     SensorFitness=SensorFitnessUpdate/(lapTimeInFrames);
     
     SensorFitness=pow(SensorFitness, 4); // To make the good even better, make thier genes much more
@@ -133,6 +136,6 @@ class SensorSystem {
     if(this.whiteSensorFrameCount > 0) SensorFitness*=0.1; // if whitespace touched remove 90% of fitness
     if(whiteSensorFrameCount <=0) SensorFitness*=2; // if no whitespace detected * 2 fitness
    
-    return SensorFitness;
+    return SensorFitness+1;
   }
 }
