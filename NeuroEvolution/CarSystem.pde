@@ -51,7 +51,6 @@ class Population {
     // Calculate total fitness of whole population
     float maxFitness = getMaxFitness();
     
-
     // Calculate fitness for each member of the population (scaled to value between 0 and 1)
     // Based on fitness, each member will get added to the mating pool a certain number of times
     // A higher fitness = more entries to mating pool = more likely to be picked as a parent
@@ -128,8 +127,5 @@ class Population {
       }
     }
   }
-  
-  
-  
   
 }
