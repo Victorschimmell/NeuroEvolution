@@ -31,7 +31,6 @@ class Population {
       controller.display();
     } 
     } else{
-    
     population.get(recordholder).display();
     }
     
@@ -62,6 +61,8 @@ class Population {
         matingpool.add(population.get(i));
       }
     }
+    
+    println("matingpool : " + matingpool.size());
   }
     // Making the next generation
   void reproduction() {

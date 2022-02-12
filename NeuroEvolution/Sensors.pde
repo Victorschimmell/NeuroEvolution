@@ -24,11 +24,11 @@ class SensorSystem {
   float   clockWiseRotationFrameCounter  = 0;
 
   //lapTime calculation
-  boolean GreenDetection;
+  boolean greenDe;
   boolean blueDe;
   boolean redDe;
-  int     lastTimeInFrames      = 0;
-  int     lapTimeInFrames       = 10000;
+  boolean disqual;
+  int     lapTimeInFrames       = 100000;
   
   float SensorFitness;
   float SensorFitnessUpdate;
@@ -73,37 +73,35 @@ class SensorSystem {
     if (color_car_position ==-1) {
       whiteSensorFrameCount = whiteSensorFrameCount+1;
     }
-    //Laptime calculation
-    boolean currentGreenDetection =false;
     
-        if(red(color_car_position) == 63 && blue(color_car_position) == 204 && green(color_car_position) == 72){
+        if(red(color_car_position) == 63 && blue(color_car_position) == 204 && green(color_car_position) == 72 && !disqual){ // Blå målstreg
       blueDe = true;
-      SensorFitnessUpdate+=100;
+      SensorFitnessUpdate=50;
     }
-    if(red(color_car_position) == 236 && green(color_car_position) == 28 && blue(color_car_position) == 36 && blueDe == true){
+    
+    if(red(color_car_position) == 236 && green(color_car_position) == 28 && blue(color_car_position) == 36 && blueDe){ // RØD målstreg
       redDe = true;
-      SensorFitnessUpdate+=100;
-      
+      SensorFitnessUpdate=100;
     }
+    
 
-    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && blueDe == true && redDe == true) {//den grønne målstreg er detekteret
-      currentGreenDetection = true;
-      SensorFitnessUpdate+=100;
-      GreenDetection = currentGreenDetection; //Husker om der var grønt sidst
-    }
-    if(red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && !blueDe && !redDe ){
-      SensorFitnessUpdate-=3;
-    }
-    
-    if(red(color_car_position)==236 && blue(color_car_position)==36 && green(color_car_position)==28 && !blueDe ){
-      SensorFitnessUpdate-=3;
-    }
-    
-    if (GreenDetection && !currentGreenDetection) {  //sidst grønt - nu ikke -vi har passeret målstregen 
+    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && blueDe && redDe && !greenDe) {//den grønne målstreg er detekteret
+      SensorFitnessUpdate=200;
       lapTimeInFrames = frameCount - lastTimeInFrames; //LAPTIME BEREGNES - frames nu - frames sidst
-      lastTimeInFrames = frameCount;
-    }   
-   
+      println(lapTimeInFrames);
+      greenDe = true;
+    }
+    
+    if(red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && !blueDe && !redDe ){ // Hvis den rammer den grønne målstreg uden at have den blå og røde
+      SensorFitnessUpdate=1;
+      disqual = true;
+    }
+    
+    if(red(color_car_position)==236 && blue(color_car_position)==36 && green(color_car_position)==28 && !blueDe ){// Hvis den rammer den røde målstreg uden at have den blå.
+      SensorFitnessUpdate=1;
+      disqual = true;
+    }
+    
     //count clockWiseRotationFrameCounter
     centerToCarVector.set((height/2)-pos.x, (width/2)-pos.y);    
     float currentRotationAngle =  centerToCarVector.heading();
@@ -129,13 +127,23 @@ class SensorSystem {
   }
   
   float senFitness(){
-    SensorFitness=SensorFitnessUpdate/(lapTimeInFrames);
     
-    SensorFitness=pow(SensorFitness, 4); // To make the good even better, make thier genes much more
+    SensorFitness=SensorFitnessUpdate/(lapTimeInFrames/60);
+    /* // remove the ones that touch the white, but that also makes the arraylist smaller, which is bad.
+    for (int i = carSystem.population.size()-1 ; i >= 0;  i--) { // removes cars that go offroad.
+        SensorSystem s = carSystem.population.get(i).sensorSystem;
+        if(s.whiteSensorFrameCount > 60){
+          carSystem.population.remove(carSystem.population.get(i));
+         }
+    }
+    */
     
-    if(this.whiteSensorFrameCount > 0) SensorFitness*=0.1; // if whitespace touched remove 90% of fitness
-    if(whiteSensorFrameCount <=0) SensorFitness*=2; // if no whitespace detected * 2 fitness
+    SensorFitness = pow(SensorFitness, 4);// makes it exponential, so that good scores are even better ( 2^4 = 8 while 8^4 = 4096)
+
+    if(whiteSensorFrameCount > 60) SensorFitness*=0.1; // romoves 90% fitness if they go offroad
+    if(whiteSensorFrameCount < 60) SensorFitness*=2; // double fitness if they stay on road
    
-    return SensorFitness+1;
+    return SensorFitness+1/(lapTimeInFrames/60);
   }
+
 }

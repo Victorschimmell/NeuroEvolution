@@ -5,7 +5,7 @@ Button btn1, btn2;
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 200;     
+int populationSize  = 100;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;
@@ -17,9 +17,11 @@ boolean scannedMap = false;
 int lifecycle;          // Timer for cycle of generation
 int recordtime;         // Fastest time to target
 int lifetime;  // How long should each generation live
-float mutationrate = 0.0005;
+float mutationrate = 0.01;
 float varians  = 2; //hvor stor er variansen på de tilfældige vægte og bias
 int recordholder;
+
+int lastTimeInFrames;
 
 boolean showAll;
 
@@ -64,8 +66,10 @@ void draw() {
 }
 
 void mouseClicked() {
+  if(menu == 1 ){
   btn1.clicked();
   btn2.clicked();
+  }
 }
 
 void drawMenu() {
@@ -93,6 +97,7 @@ void drawEvolution() {
       carSystem.fitness();
       carSystem.selection();
       carSystem.reproduction();
+      lastTimeInFrames = frameCount;
     }
     fill(1);
     textSize(13);
