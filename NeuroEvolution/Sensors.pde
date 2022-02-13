@@ -1,22 +1,18 @@
-class SensorSystem {
-  //SensorSystem - alle bilens sensorer - ogå dem der ikke bruges af "hjernen"
+class Sensors {
+  //Sensors - alle bilens sensorer - ogå dem der ikke bruges af "hjernen"
 
   //wall detectors
   float sensorMag = 50;
   float sensorAngle = PI*2/8;
 
-  PVector anchorPos           = new PVector();
+  PVector anchorPos = new PVector();
 
-  PVector sensorVectorFront   = new PVector(0, sensorMag);
-  PVector sensorVectorLeft    = new PVector(0, sensorMag);
-  PVector sensorVectorRight   = new PVector(0, sensorMag);
+  PVector fSensorPos = new PVector(0, sensorMag), lSensorPos = new PVector(0, sensorMag), rSensorPos = new PVector(0, sensorMag);
 
-  boolean frontSensorSignal   = false;
-  boolean leftSensorSignal    = false;
-  boolean rightSensorSignal   = false;
+  boolean fSensor = false, lSensor= false, rSensor = false;
 
   //crash detection
-  int whiteSensorFrameCount    = 0; //udenfor banen
+  int whiteFrame    = 0; //udenfor banen
 
   //clockwise rotation detection
   PVector centerToCarVector     = new PVector();
@@ -38,25 +34,25 @@ class SensorSystem {
   void displaySensors() {
     stroke(1);
     strokeWeight(0.5);
-    if (frontSensorSignal) { 
+    if (fSensor) { 
       fill(255, 0, 0);
-      ellipse(anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y, 8, 8);
+      ellipse(anchorPos.x+fSensorPos.x, anchorPos.y+fSensorPos.y, 8, 8);
     }
-    if (leftSensorSignal) { 
+    if (lSensor) { 
       fill(255, 0, 0);
-      ellipse( anchorPos.x+sensorVectorLeft.x, anchorPos.y+sensorVectorLeft.y, 8, 8);
+      ellipse( anchorPos.x+lSensorPos.x, anchorPos.y+lSensorPos.y, 8, 8);
     }
-    if (rightSensorSignal) { 
+    if (rSensor) { 
       fill(255, 0, 0);
-      ellipse( anchorPos.x+sensorVectorRight.x, anchorPos.y+sensorVectorRight.y, 8, 8);
+      ellipse( anchorPos.x+rSensorPos.x, anchorPos.y+rSensorPos.y, 8, 8);
     }
-    line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y);
-    line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorLeft.x, anchorPos.y+sensorVectorLeft.y);
-    line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorRight.x, anchorPos.y+sensorVectorRight.y);
+    line(anchorPos.x, anchorPos.y, anchorPos.x+fSensorPos.x, anchorPos.y+fSensorPos.y);
+    line(anchorPos.x, anchorPos.y, anchorPos.x+lSensorPos.x, anchorPos.y+lSensorPos.y);
+    line(anchorPos.x, anchorPos.y, anchorPos.x+rSensorPos.x, anchorPos.y+rSensorPos.y);
 
     strokeWeight(2);
-    if (whiteSensorFrameCount>0) {
-      fill(whiteSensorFrameCount*10, 0, 0);
+    if (whiteFrame>0) {
+      fill(whiteFrame*10, 0, 0);
     } else {
       fill(0, clockWiseRotationFrameCounter, 0);
     }
@@ -65,13 +61,13 @@ class SensorSystem {
 
   void updateSensorsignals(PVector pos, PVector vel) {
     //Collision detectors
-    frontSensorSignal = get(int(pos.x+sensorVectorFront.x), int(pos.y+sensorVectorFront.y))==-1?true:false;
-    leftSensorSignal = get(int(pos.x+sensorVectorLeft.x), int(pos.y+sensorVectorLeft.y))==-1?true:false;
-    rightSensorSignal = get(int(pos.x+sensorVectorRight.x), int(pos.y+sensorVectorRight.y))==-1?true:false;  
+    fSensor = get(int(pos.x+fSensorPos.x), int(pos.y+fSensorPos.y))==-1?true:false;
+    lSensor = get(int(pos.x+lSensorPos.x), int(pos.y+lSensorPos.y))==-1?true:false;
+    rSensor = get(int(pos.x+rSensorPos.x), int(pos.y+rSensorPos.y))==-1?true:false;  
     //Crash detector
     color color_car_position = get(int(pos.x), int(pos.y));
     if (color_car_position ==-1) {
-      whiteSensorFrameCount = whiteSensorFrameCount+1;
+      whiteFrame = whiteFrame+1;
     }
 
     if (red(color_car_position) == 63  && green(color_car_position) == 72 && blue(color_car_position) == 204 && !disqual && !greenDe) { // Blå målstreg
@@ -115,14 +111,14 @@ class SensorSystem {
 
   void updateSensorVectors(PVector vel) {
     if (vel.mag()!=0) {
-      sensorVectorFront.set(vel);
-      sensorVectorFront.normalize();
-      sensorVectorFront.mult(sensorMag);
+      fSensorPos.set(vel);
+      fSensorPos.normalize();
+      fSensorPos.mult(sensorMag);
     }
-    sensorVectorLeft.set(sensorVectorFront);
-    sensorVectorLeft.rotate(-sensorAngle);
-    sensorVectorRight.set(sensorVectorFront);
-    sensorVectorRight.rotate(sensorAngle);
+    lSensorPos.set(fSensorPos);
+    lSensorPos.rotate(-sensorAngle);
+    rSensorPos.set(fSensorPos);
+    rSensorPos.rotate(sensorAngle);
   }
 
   float senFitness() {
@@ -132,9 +128,9 @@ class SensorSystem {
     // remove the ones that touch the white, but that also makes the arraylist smaller, which is bad.
 
     for (int i = carSystem.population.size()-1; i >= 0; i--) { // removes cars that go the wrong way.
-      if (carSystem.population.get(i).sensorSystem.disqual == true) {
+      if (carSystem.population.get(i).Sensors.disqual == true) {
         carSystem.population.remove(carSystem.population.get(i));
-      } else if (carSystem.population.get(i).sensorSystem.whiteSensorFrameCount > 0) {
+      } else if (carSystem.population.get(i).Sensors.whiteFrame > 0) {
         carSystem.population.remove(carSystem.population.get(i));
       }else{
         
@@ -144,8 +140,8 @@ class SensorSystem {
     SensorFitness = pow(SensorFitness, 4);// makes it exponential, so that good scores are even better ( 2^4 = 8 while 8^4 = 4096)
 
     /*
-    if (whiteSensorFrameCount > 60) SensorFitness*=0.1; // romoves 90% fitness if they go offroad
-     if (whiteSensorFrameCount < 60) SensorFitness*=2; // double fitness if they stay on road
+    if (whiteFrame > 60) SensorFitness*=0.1; // romoves 90% fitness if they go offroad
+     if (whiteFrame < 60) SensorFitness*=2; // double fitness if they stay on road
      */
 
     return SensorFitness+1/(lapTimeInFrames/60);

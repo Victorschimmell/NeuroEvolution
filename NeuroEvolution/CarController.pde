@@ -2,7 +2,7 @@ class CarController {
   //Forbinder - Sensorer & Hjerne & Bil
   Vehicle bil = new Vehicle(new PVector(spawn_x,spawn_y), new PVector(0, 5));
   NeuralNetwork hjerne;
-  SensorSystem  sensorSystem = new SensorSystem();
+  Sensors  Sensors = new Sensors();
   
   float fitness;
   float turnAngle = 0;
@@ -21,12 +21,12 @@ class CarController {
     //1.)opdtarer bil   
     bil.update();
     //2.)opdaterer sensorer    
-    sensorSystem.updateSensorsignals(bil.pos, bil.vel);
+    Sensors.updateSensorsignals(bil.pos, bil.vel);
     //3.)hjernen beregner hvor meget der skal drejes
     
-    float x1 = int(sensorSystem.leftSensorSignal);
-    float x2 = int(sensorSystem.frontSensorSignal);
-    float x3 = int(sensorSystem.rightSensorSignal);    
+    float x1 = int(Sensors.lSensor);
+    float x2 = int(Sensors.fSensor);
+    float x3 = int(Sensors.rSensor);    
     turnAngle = hjerne.getOutput(x1, x2, x3);    
     //4.)bilen drejes
     bil.turnCar(turnAngle);
@@ -34,7 +34,7 @@ class CarController {
   
   void display(){
     if(showSen){
-    sensorSystem.displaySensors();
+    Sensors.displaySensors();
     noStroke();
     }
     bil.displayCar();
@@ -42,7 +42,7 @@ class CarController {
   
   
   float getFitness(){
-    fitness = sensorSystem.senFitness();
+    fitness = Sensors.senFitness();
    return fitness;
   }
   

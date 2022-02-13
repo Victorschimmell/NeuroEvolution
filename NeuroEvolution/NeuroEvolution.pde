@@ -135,8 +135,8 @@ void drawEvolution() {
     text("Cycles left: " + (lifetime-lifecycle)+ "/900", width-100, 60);
     for (int i = 0; i < carSystem.population.size(); i++) {
 
-      if (record > carSystem.population.get(i).sensorSystem.getLapTime()) {
-        record = carSystem.population.get(i).sensorSystem.getLapTime();
+      if (record > carSystem.population.get(i).Sensors.getLapTime()) {
+        record = carSystem.population.get(i).Sensors.getLapTime();
       }
     }
     text("Best Lap: " + record + " frames", width-100, 80);
