@@ -103,7 +103,10 @@ void drawMenu() {
 void drawCustom() {
   background(255);
   btn4.display();
-  image(displayImage,width/2,height/3);
+  image(displayImage,width/2,height/3+50);
+  textSize(30);
+  fill(0,0,0);
+  text("Change current map",width/2,height*1/12);
 }
 
 void drawEvolution() {
