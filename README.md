@@ -16,7 +16,7 @@ Det Neurale netværk er et nætværk bestående/konstrueret af de her neuroner i
 #### Sensors:
 Sensorerne er laves gennem et helt sensorsystem, hvor disse sensorer bruges til at kunne styre bilen og udregne deres fitness.
 Sensorsystemet er for alle biler, selv også dem som ikke bruges af vores neurale netværk - hjernen.
-Her kan der opdages væggene altså vejens kanter, hvor vi den kan opdage om den crasher.
+Her kan væggene opdages - altså vejens kanter, hvor den kan opfange om den crasher.
 
 #### Vehicle:
 Vores biler indeholder en position og hastighed, hvor de også kan dreje til venstre og højre 
