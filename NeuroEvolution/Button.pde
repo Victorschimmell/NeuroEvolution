@@ -74,19 +74,26 @@ class Button {
           selected = false;
           break;
         case 4: 
-          trackImage = loadImage("Track.png");
-          trackImage.resize(width, height);
-          println("Track1");
+          if(currentTrack<8){
+            currentTrack= currentTrack+1;
+            String track = "track_" + currentTrack + ".png";
+            trackImage = loadImage(track);
+            trackImage.resize(width, height);
+            displayImage = loadImage(track);
+            displayImage.resize(width/2,height/2);
+            println("track_"+currentTrack);
 
-          selected = false;
-          break;
-        case 5: 
-          trackImage = loadImage("track_2.png");
-          trackImage.resize(width, height);
-          println("Track2");
-          
-          selected = false;
-          break;
+            selected = false;
+            break;
+          }else{
+            println("Track 1");
+            currentTrack=1;
+            String track = "track_" + currentTrack + ".png";
+            
+            trackImage = loadImage(track);
+            displayImage = loadImage(track);
+            displayImage.resize(width/2,height/2);
+          }
 
 
         default:

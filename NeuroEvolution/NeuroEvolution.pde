@@ -1,8 +1,10 @@
 //
 int menu = 1;
+int currentTrack = 1;
 Button btn1, btn2, btn3, btn4, btn5;
 
 PImage trackImage;
+PImage displayImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
 int populationSize  = 100;     
@@ -28,7 +30,7 @@ int fastLap;
 boolean showAll = true;
 boolean showSen = false;
 
-String track;
+String track = "track_" + currentTrack + ".png";
 
 void setup() {
   size(1000, 800);
@@ -47,9 +49,8 @@ void setup() {
 
   btn3 = new Button(70, height/20, 100, 40, "Back", 3);
 
-  btn4 = new Button(width/4, height/2, 200, 80, "Track 1", 4);
+  btn4 = new Button(width/2, height*3/4, 200, 80, "Track " + currentTrack, 4);
 
-  btn5 = new Button(width/4*3, height/2, 200, 80, "Track 2", 5);
 }
 
 void draw() {
@@ -88,7 +89,6 @@ void mouseClicked() {
 
   if (menu == 3) {
     btn4.clicked();
-    btn5.clicked();
   }
 }
 
@@ -103,7 +103,7 @@ void drawMenu() {
 void drawCustom() {
   background(255);
   btn4.display();
-  btn5.display();
+  image(displayImage,width/2,height/3);
 }
 
 void drawEvolution() {
@@ -149,8 +149,10 @@ void drawEvolution() {
 
 void loadImages() {
   imageMode(CENTER);
-  trackImage = loadImage("Track.png");
+  trackImage = loadImage("track_1.png");
   trackImage.resize(width, height);
+  displayImage = loadImage(track);
+  displayImage.resize(width/2,height/2);
 
   car_1 = loadImage("Red_CAR.png");
   car_2 = loadImage("Blue_CAR.png");
