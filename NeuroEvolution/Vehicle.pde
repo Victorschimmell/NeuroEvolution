@@ -15,7 +15,6 @@ class Car {
     
   }
   
-  
   void turnCar(float turnAngle){
     vel.rotate(turnAngle);
   }

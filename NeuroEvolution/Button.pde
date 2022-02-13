@@ -1,5 +1,5 @@
 class Button {
-  
+
   PVector pos; //position
   float w, h; //size
   boolean selected; //is the button selected / on? true/false
@@ -14,14 +14,14 @@ class Button {
 
     pos = new PVector(x, y);
     this.w = w;
-    
-   this.h = h;
-    
+
+    this.h = h;
+
 
     label = input;
     selected = false;
-    
-    
+
+
 
     highlighted = color(60); 
     defaultColor = color(100); //slightly darker?
@@ -36,7 +36,7 @@ class Button {
     } else {
       currentColor = defaultColor;
     }
-
+   rectMode(CORNER);
     fill(currentColor);
     rect(pos.x-w/2, pos.y-h/2, w, h);
     textSize(40);
@@ -56,14 +56,18 @@ class Button {
         case 1:
           // code block
           menu = 2;
-          image(trackImage,width/2,height/2);
+          image(trackImage, width/2, height/2);
           scanMap();
           break;
         case 2:
           menu = 3;
           // code block
-          
           break;
+        case 3: 
+          menu = 1;
+
+          break;
+
         default:
           // Do nothing
         }

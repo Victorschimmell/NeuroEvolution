@@ -1,6 +1,6 @@
 //
 int menu = 1;
-Button btn1, btn2;
+Button btn1, btn2, btn3;
 
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
@@ -23,7 +23,7 @@ int recordholder;
 
 int lastTimeInFrames;
 
-boolean showAll;
+boolean showAll = true;
 
 void setup() {
   size(1000, 800);
@@ -40,6 +40,8 @@ void setup() {
   btn1 = new Button(width/2, height/2, 200, 80, "Start", 1);
 
   btn2 = new Button(width/2, height/2+100, 200, 80, "Options", 2);
+
+  btn3 = new Button(20, 20, 100, 40, "Back", 3);
 }
 
 void draw() {
@@ -54,6 +56,7 @@ void draw() {
     //Do something
     image(trackImage, width/2, height/2);
     drawEvolution();
+    btn3.display();
 
     break;
   case 3:
@@ -66,9 +69,12 @@ void draw() {
 }
 
 void mouseClicked() {
-  if(menu == 1 ){
-  btn1.clicked();
-  btn2.clicked();
+  if (menu == 1 ) {
+    btn1.clicked();
+    btn2.clicked();
+  }
+  if (menu == 2) {
+    btn3.clicked();
   }
 }
 
@@ -101,7 +107,7 @@ void drawEvolution() {
     }
     fill(1);
     textSize(13);
-    text(frameRate, width-100, 20);
+    text(round(frameRate) + " FPS", width-100, 20);
   }
 }
 

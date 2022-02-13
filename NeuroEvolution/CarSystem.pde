@@ -66,8 +66,9 @@ class Population {
   }
     // Making the next generation
   void reproduction() {
+    population.clear();
     // Refill the population with children from the mating pool
-    for (int i = 0; i < population.size(); i++) {
+    for (int i = 0; i < populationSize; i++) {
       // Sping the wheel of fortune to pick two parents
       int m = int(random(matingpool.size()));
       int d = int(random(matingpool.size()));
@@ -85,10 +86,11 @@ class Population {
       // Mutate their genes
       mutate(mutationrate, childDNA1);
       // Fill the new population with the new child
-      population.set(i, new CarController(childDNA1, childDNA2));
+      population.add( new CarController(childDNA1, childDNA2));
     }
     generations++;
     println("Generation: " + generations);
+    println(population.size());
     
   }
   
@@ -107,7 +109,7 @@ class Population {
     
     return record;
   }
-  
+
     float[] crossover(float[] partner1, float[] partner2) {
     float[] child = new float[partner1.length];
     // Pick a midpoint
@@ -120,6 +122,7 @@ class Population {
     float[] newgenes = child;
     return newgenes;
   }
+  
   void mutate(float m, float[] child) {
     for (int i = 0; i < child.length; i++) {
       if (random(1) < m) {
