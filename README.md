@@ -11,7 +11,7 @@ Vi opdaterer bil, sensorer og så beregner hjernen hvor meget der skal drejes. D
 #### Neuralnetwork:
 Det neurale netværk er det som vi kender som hjernen.
 Her defineres alle weights og biases. 
-Det Neurale netværk for nogle inputs og output
+Det Neurale netværk er et nætværk bestående/konstrueret af de her neuroner i 3 lag: input-laget, mellem-laget og output-laget
 
 #### Sensors:
 Sensorerne er laves gennem et helt sensorsystem, hvor disse sensorer bruges til at kunne styre bilen og udregne deres fitness.
