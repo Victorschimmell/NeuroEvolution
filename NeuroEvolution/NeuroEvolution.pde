@@ -7,7 +7,7 @@ PImage trackImage;
 PImage displayImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 500;     
+int populationSize  = 300;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;
@@ -103,7 +103,10 @@ void drawMenu() {
 void drawCustom() {
   background(255);
   btn4.display();
-  image(displayImage,width/2,height/3);
+  image(displayImage,width/2,height/3+50);
+  textSize(30);
+  fill(0,0,0);
+  text("Change current map",width/2,height*1/12);
 }
 
 void drawEvolution() {
