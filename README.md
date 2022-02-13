@@ -5,7 +5,7 @@
 ### Kort beskrivelse af vigtige klasser:
 
 #### CarController: 
-Denne klasse forbinder sensorerne, hjernen og selve den atonome bil.
+Denne klasse forbinder sensorerne, hjernen og bilen.
 Vi opdaterer bil, sensorer og så beregner hjernen hvor meget der skal drejes.
 
 #### Neuralnetwork:
