@@ -95,6 +95,7 @@ class Button {
             trackImage = loadImage(track);
             displayImage = loadImage(track);
             displayImage.resize(width/2,height/2);
+            selected = false;
           }
 
 

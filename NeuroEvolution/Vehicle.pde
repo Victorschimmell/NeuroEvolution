@@ -1,6 +1,7 @@
 class Vehicle {  
   //Bil - indeholder position & hastighed & "tegning"
   PVector pos;
+  PVector acc;
   PVector vel;
   int n;
   float angle;
