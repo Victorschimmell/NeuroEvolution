@@ -5,7 +5,7 @@ Button btn1, btn2, btn3, btn4, btn5;
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 500;     
+int populationSize  = 100;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;
@@ -26,6 +26,7 @@ int lastTimeInFrames;
 int fastLap;
 
 boolean showAll = true;
+boolean showSen = false;
 
 String track;
 
@@ -184,6 +185,7 @@ PImage pickCar(int n) {
 void keyPressed() {
 
   if (key== 'n') showAll = !showAll;
+  if(key == 'm') showSen = !showSen;
 }
 
 void scanMap() {

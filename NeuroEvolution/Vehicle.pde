@@ -1,4 +1,4 @@
-class Car {  
+class Vehicle {  
   //Bil - indeholder position & hastighed & "tegning"
   PVector pos;
   PVector vel;
@@ -6,7 +6,7 @@ class Car {
   float angle;
   int r;
   
-  Car(PVector startPos, PVector Hastighed){
+  Vehicle(PVector startPos, PVector Hastighed){
     this.n = int(random(1,5.9));
     
     this.pos = startPos;
@@ -20,7 +20,6 @@ class Car {
 
   void displayCar() {
     
-    /*
     if(pos.y>height/2){
       pushMatrix();
       scale(-1,1);
@@ -29,12 +28,12 @@ class Car {
     }else{
       image(pickCar(n), pos.x, pos.y);
     }
-    */
-  
+    
+    /*
     stroke(1);
     fill(255);
     circle(pos.x, pos.y, r);
-    
+    */
   }
     
     

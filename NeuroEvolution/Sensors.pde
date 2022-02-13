@@ -36,6 +36,7 @@ class SensorSystem {
 
 
   void displaySensors() {
+    stroke(1);
     strokeWeight(0.5);
     if (frontSensorSignal) { 
       fill(255, 0, 0);

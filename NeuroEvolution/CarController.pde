@@ -1,6 +1,6 @@
 class CarController {
   //Forbinder - Sensorer & Hjerne & Bil
-  Car bil = new Car(new PVector(spawn_x,spawn_y), new PVector(0, 5));
+  Vehicle bil = new Vehicle(new PVector(spawn_x,spawn_y), new PVector(0, 5));
   NeuralNetwork hjerne;
   SensorSystem  sensorSystem = new SensorSystem();
   
@@ -33,8 +33,10 @@ class CarController {
   }
   
   void display(){
+    if(showSen){
+    sensorSystem.displaySensors();
+    }
     bil.displayCar();
-    //sensorSystem.displaySensors();
   }
   
   
