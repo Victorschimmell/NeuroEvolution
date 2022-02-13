@@ -141,6 +141,8 @@ void drawEvolution() {
     }
     text("Best Lap: " + record + " frames", width-100, 80);
     text("Population Size: "+ carSystem.population.size(), width-100, 100);
+    text("Toggle Sensors: m", width-100, 120);
+    text("Toggle highest fitness: n", width-100, 140);
   }
 }
 
