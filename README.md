@@ -6,7 +6,7 @@
 
 #### CarController: 
 Denne klasse forbinder sensorerne, hjernen og selve den atonome bil.
-Vi opdaterer bil, sensorer og så beregner hjernen hvor meget der skal drejes. Derefter displayes det. 
+Vi opdaterer bil, sensorer og så beregner hjernen hvor meget der skal drejes.
 
 #### Neuralnetwork:
 Det neurale netværk er det som vi kender som hjernen.
