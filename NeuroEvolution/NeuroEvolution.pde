@@ -7,7 +7,7 @@ PImage trackImage;
 PImage displayImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 500;     
+int populationSize  = 300;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;

@@ -35,6 +35,7 @@ class CarController {
   void display(){
     if(showSen){
     sensorSystem.displaySensors();
+    noStroke();
     }
     bil.displayCar();
   }
