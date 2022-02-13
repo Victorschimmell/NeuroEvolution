@@ -11,8 +11,7 @@ class Car {
     
     this.pos = startPos;
     this.vel = Hastighed;
-    this.r = int(random(25,35));
-    
+    this.r = int(random(15,25));
   }
   
   void turnCar(float turnAngle){
@@ -20,6 +19,8 @@ class Car {
   }
 
   void displayCar() {
+    
+    /*
     if(pos.y>height/2){
       pushMatrix();
       scale(-1,1);
@@ -28,12 +29,12 @@ class Car {
     }else{
       image(pickCar(n), pos.x, pos.y);
     }
-    
-
-    /*stroke(1);
+    */
+  
+    stroke(1);
     fill(255);
     circle(pos.x, pos.y, r);
-    */
+    
   }
     
     

@@ -2,7 +2,7 @@ class SensorSystem {
   //SensorSystem - alle bilens sensorer - ogå dem der ikke bruges af "hjernen"
 
   //wall detectors
-  float sensorMag = 50;
+  float sensorMag = 80;
   float sensorAngle = PI*2/8;
 
   PVector anchorPos           = new PVector();
@@ -73,7 +73,7 @@ class SensorSystem {
       whiteSensorFrameCount = whiteSensorFrameCount+1;
     }
 
-    if (red(color_car_position) == 63 && blue(color_car_position) == 204 && green(color_car_position) == 72 && !disqual && !greenDe) { // Blå målstreg
+    if (red(color_car_position) == 63  && green(color_car_position) == 72 && blue(color_car_position) == 204 && !disqual && !greenDe) { // Blå målstreg
       blueDe = true;
       SensorFitnessUpdate=50;
     }
@@ -84,10 +84,9 @@ class SensorSystem {
     }
 
 
-    if (red(color_car_position)==14 && blue(color_car_position)==69 && green(color_car_position)==209 && blueDe && redDe && !greenDe) {//den grønne målstreg er detekteret
+    if (red(color_car_position)==14  && green(color_car_position)==209 && blue(color_car_position)==69 && blueDe && redDe && !greenDe) {//den grønne målstreg er detekteret
       SensorFitnessUpdate=200;
       lapTimeInFrames = frameCount - lastTimeInFrames; //LAPTIME BEREGNES - frames nu - frames sidst
-      println(lapTimeInFrames);
       greenDe = true;
     }
 
@@ -131,24 +130,28 @@ class SensorSystem {
 
     // remove the ones that touch the white, but that also makes the arraylist smaller, which is bad.
 
-    for (int i = carSystem.population.size()-1; i >= 0; i--) { // removes cars that go offroad.
+    for (int i = carSystem.population.size()-1; i >= 0; i--) { // removes cars that go the wrong way.
       if (carSystem.population.get(i).sensorSystem.disqual == true) {
         carSystem.population.remove(carSystem.population.get(i));
+      } else if (carSystem.population.get(i).sensorSystem.whiteSensorFrameCount > 20) {
+        carSystem.population.remove(carSystem.population.get(i));
+      }else{
+        
       }
     }
 
     SensorFitness = pow(SensorFitness, 4);// makes it exponential, so that good scores are even better ( 2^4 = 8 while 8^4 = 4096)
 
-
+    /*
     if (whiteSensorFrameCount > 60) SensorFitness*=0.1; // romoves 90% fitness if they go offroad
-    if (whiteSensorFrameCount < 60) SensorFitness*=2; // double fitness if they stay on road
-
+     if (whiteSensorFrameCount < 60) SensorFitness*=2; // double fitness if they stay on road
+     */
 
     return SensorFitness+1/(lapTimeInFrames/60);
   }
-  
-  
-  float getLapTime(){
+
+
+  float getLapTime() {
     return lapTimeInFrames;
   }
 }

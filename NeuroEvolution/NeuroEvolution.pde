@@ -5,7 +5,7 @@ Button btn1, btn2, btn3, btn4, btn5;
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
 
-int populationSize  = 100;     
+int populationSize  = 500;     
 
 //CarSystem: Indholder en population af "controllere" 
 Population carSystem;
@@ -117,9 +117,14 @@ void drawEvolution() {
       // Otherwise a new generation
     } else {
       lifecycle = 0;
+      try{
       carSystem.fitness();
       carSystem.selection();
       carSystem.reproduction();
+      } catch (Exception e){
+        println(e);
+        carSystem = new Population(populationSize, mutationrate);
+      }
       lastTimeInFrames = frameCount;
     }
     fill(1);
@@ -134,6 +139,7 @@ void drawEvolution() {
       }
     }
     text("Best Lap: " + record + " frames", width-100, 80);
+    text("Population Size: "+ carSystem.population.size(), width-100, 100);
   }
 }
 
