@@ -46,7 +46,7 @@ class CarController {
   float[] getDNA1(){
     return hjerne.weights;
   }
-    float[] getDNA2(){
+   float[] getDNA2(){
     return hjerne.biases;
   }
   

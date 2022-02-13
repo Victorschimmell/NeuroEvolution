@@ -36,7 +36,7 @@ class Button {
     } else {
       currentColor = defaultColor;
     }
-   rectMode(CORNER);
+    rectMode(CORNER);
     fill(currentColor);
     rect(pos.x-w/2, pos.y-h/2, w, h);
     textSize(40);
@@ -49,7 +49,8 @@ class Button {
     if ( mouseX > pos.x-w/2 && mouseX < pos.x-w/2 + w  && mouseY > pos.y-h/2 && mouseY < pos.y-h/2+h) {
       //mouse has been clicked
       selected = !selected;  //toggle the value between true and false
-      if ( selected) {
+
+      if (selected) {
         currentColor = highlighted;
 
         switch(id) {
@@ -58,15 +59,35 @@ class Button {
           menu = 2;
           image(trackImage, width/2, height/2);
           scanMap();
+          lifecycle = 0;
+          record = 100000;
+          selected = false;
           break;
         case 2:
           menu = 3;
           // code block
+          selected = false;
           break;
         case 3: 
           menu = 1;
 
+          selected = false;
           break;
+        case 4: 
+          trackImage = loadImage("Track.png");
+          trackImage.resize(width, height);
+          println("Track1");
+
+          selected = false;
+          break;
+        case 5: 
+          trackImage = loadImage("track_2.png");
+          trackImage.resize(width, height);
+          println("Track2");
+          
+          selected = false;
+          break;
+
 
         default:
           // Do nothing

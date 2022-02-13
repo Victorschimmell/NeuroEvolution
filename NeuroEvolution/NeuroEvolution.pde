@@ -1,6 +1,6 @@
 //
 int menu = 1;
-Button btn1, btn2, btn3;
+Button btn1, btn2, btn3, btn4, btn5;
 
 PImage trackImage;
 PImage car_1, car_2, car_3, car_4, car_5;
@@ -15,15 +15,19 @@ float spawn_y;
 boolean scannedMap = false;
 
 int lifecycle;          // Timer for cycle of generation
-int recordtime;         // Fastest time to target
+float record = 100000;
+
 int lifetime;  // How long should each generation live
 float mutationrate = 0.01;
 float varians  = 2; //hvor stor er variansen på de tilfældige vægte og bias
 int recordholder;
 
 int lastTimeInFrames;
+int fastLap;
 
 boolean showAll = true;
+
+String track;
 
 void setup() {
   size(1000, 800);
@@ -35,13 +39,16 @@ void setup() {
 
   // Initialize variables
   lifecycle = 0;
-  recordtime = lifetime;
 
   btn1 = new Button(width/2, height/2, 200, 80, "Start", 1);
 
   btn2 = new Button(width/2, height/2+100, 200, 80, "Options", 2);
 
-  btn3 = new Button(20, 20, 100, 40, "Back", 3);
+  btn3 = new Button(70, height/20, 100, 40, "Back", 3);
+
+  btn4 = new Button(width/4, height/2, 200, 80, "Track 1", 4);
+
+  btn5 = new Button(width/4*3, height/2, 200, 80, "Track 2", 5);
 }
 
 void draw() {
@@ -61,6 +68,7 @@ void draw() {
     break;
   case 3:
     drawCustom();
+    btn3.display();
     break;
 
   default:
@@ -73,29 +81,38 @@ void mouseClicked() {
     btn1.clicked();
     btn2.clicked();
   }
-  if (menu == 2) {
+  if (menu == 2  || menu == 3) {
     btn3.clicked();
+  }
+
+  if (menu == 3) {
+    btn4.clicked();
+    btn5.clicked();
   }
 }
 
 void drawMenu() {
+  textSize(70);
+  fill(1);
+  text("NeuroEvolution", width/2, height/5);
   btn1.display();
   btn2.display();
 }
 
 void drawCustom() {
   background(255);
+  btn4.display();
+  btn5.display();
 }
 
 void drawEvolution() {
+
 
   if (scannedMap) {
     if (lifecycle < lifetime) {
       carSystem.getMaxFitness();
       carSystem.updateAndDisplay();
-      if ((lifecycle < recordtime)) {
-        recordtime = lifecycle;
-      }
+
       lifecycle++;
       // Otherwise a new generation
     } else {
@@ -108,13 +125,22 @@ void drawEvolution() {
     fill(1);
     textSize(13);
     text(round(frameRate) + " FPS", width-100, 20);
+    text("Generation #: " + carSystem.getGenerations(), width-100, 40);
+    text("Cycles left: " + (lifetime-lifecycle)+ "/900", width-100, 60);
+    for (int i = 0; i < carSystem.population.size(); i++) {
+
+      if (record > carSystem.population.get(i).sensorSystem.getLapTime()) {
+        record = carSystem.population.get(i).sensorSystem.getLapTime();
+      }
+    }
+    text("Best Lap: " + record + " frames", width-100, 80);
   }
 }
 
 
 void loadImages() {
   imageMode(CENTER);
-  trackImage = loadImage("track_2.png");
+  trackImage = loadImage("Track.png");
   trackImage.resize(width, height);
 
   car_1 = loadImage("Red_CAR.png");

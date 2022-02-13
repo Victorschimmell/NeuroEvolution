@@ -146,4 +146,9 @@ class SensorSystem {
 
     return SensorFitness+1/(lapTimeInFrames/60);
   }
+  
+  
+  float getLapTime(){
+    return lapTimeInFrames;
+  }
 }
