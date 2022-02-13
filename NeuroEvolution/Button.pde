@@ -36,6 +36,8 @@ class Button {
     } else {
       currentColor = defaultColor;
     }
+    stroke(1);
+    strokeWeight(1);
     rectMode(CORNER);
     fill(currentColor);
     rect(pos.x-w/2, pos.y-h/2, w, h);
