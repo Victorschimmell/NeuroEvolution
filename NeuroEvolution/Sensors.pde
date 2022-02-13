@@ -134,7 +134,7 @@ class SensorSystem {
     for (int i = carSystem.population.size()-1; i >= 0; i--) { // removes cars that go the wrong way.
       if (carSystem.population.get(i).sensorSystem.disqual == true) {
         carSystem.population.remove(carSystem.population.get(i));
-      } else if (carSystem.population.get(i).sensorSystem.whiteSensorFrameCount > 20) {
+      } else if (carSystem.population.get(i).sensorSystem.whiteSensorFrameCount > 0) {
         carSystem.population.remove(carSystem.population.get(i));
       }else{
         
