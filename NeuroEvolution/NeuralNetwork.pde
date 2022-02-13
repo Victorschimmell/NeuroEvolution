@@ -1,11 +1,11 @@
-class NeuralNetwork {
+class dnaNeuralNetwork {
   //All weights
   public float[] weights = new float[8];
   
   //All biases
   public float[] biases = new float[3];
 
-  NeuralNetwork(float varians){
+  dnaNeuralNetwork(float varians){
     for(int i=0; i < weights.length -1; i++){
       weights[i] = random(-varians,varians);
     }
@@ -14,7 +14,7 @@ class NeuralNetwork {
     }    
   }
   
-   NeuralNetwork(float[] weights, float[] biases){
+   dnaNeuralNetwork(float[] weights, float[] biases){
     this.weights = weights;
     this.biases = biases;
   }

@@ -2,32 +2,32 @@ class Population {
   //CarSystem - 
  float mutationsrate;
  
-  ArrayList<CarController> population  = new ArrayList<CarController>();
-  ArrayList<CarController> matingpool;
+  ArrayList<Vehicle> population  = new ArrayList<Vehicle>();
+  ArrayList<Vehicle> matingpool;
   int generations;             // Number of generations
 
   Population(int populationSize, float mutationrate) {
     this.mutationsrate = mutationrate;
     
     for (int i=0; i<populationSize; i++) { 
-      CarController controller = new CarController();
+      Vehicle controller = new Vehicle();
       population.add(controller);
     }
     
-    matingpool = new ArrayList<CarController>();
+    matingpool = new ArrayList<Vehicle>();
     
     
   }
 
   void updateAndDisplay() {
     //1.) Opdaterer sensorer og bilpositioner
-    for (CarController controller : population) {
+    for (Vehicle controller : population) {
       controller.update();
     }
     
     if(showAll){
     //2.) Tegner tilsidst - så sensorer kun ser banen og ikke andre biler!
-    for (CarController controller : population) {
+    for (Vehicle controller : population) {
       controller.display();
     } 
     } else{
@@ -73,8 +73,8 @@ class Population {
       int m = int(random(matingpool.size()));
       int d = int(random(matingpool.size()));
       // Pick two parents
-      CarController mom = matingpool.get(m);
-      CarController dad = matingpool.get(d);
+      Vehicle mom = matingpool.get(m);
+      Vehicle dad = matingpool.get(d);
       // Get their genes
       float[] momgenes1 = mom.getDNA1();
       float[] momgenes2 = mom.getDNA2();
@@ -86,7 +86,7 @@ class Population {
       // Mutate their genes
       mutate(mutationrate, childDNA1);
       // Fill the new population with the new child
-      population.add( new CarController(childDNA1, childDNA2));
+      population.add( new Vehicle(childDNA1, childDNA2));
     }
     generations++;
     println("Generation: " + generations);

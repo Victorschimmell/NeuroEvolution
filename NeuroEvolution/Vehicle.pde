@@ -1,4 +1,4 @@
-class Vehicle {  
+class car {  
   //Bil - indeholder position & hastighed & "tegning"
   PVector pos;
   PVector acc;
@@ -7,7 +7,7 @@ class Vehicle {
   float angle;
   int r;
   
-  Vehicle(PVector startPos, PVector Hastighed){
+  car(PVector startPos, PVector Hastighed){
     this.n = int(random(1,5.9));
     
     this.pos = startPos;

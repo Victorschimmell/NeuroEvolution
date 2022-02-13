@@ -1,20 +1,20 @@
-class CarController {
+class Vehicle {
   //Forbinder - Sensorer & Hjerne & Bil
-  Vehicle bil = new Vehicle(new PVector(spawn_x,spawn_y), new PVector(0, 5));
-  NeuralNetwork hjerne;
+  car bil = new car(new PVector(spawn_x,spawn_y), new PVector(0, 5));
+  dnaNeuralNetwork hjerne;
   Sensors  Sensors = new Sensors();
   
   float fitness;
   float turnAngle = 0;
   
-  CarController(){
-    hjerne = new NeuralNetwork(varians); 
+  Vehicle(){
+    hjerne = new dnaNeuralNetwork(varians); 
     
   }
   
-  CarController(float[] DNA1, float[] DNA2){
+  Vehicle(float[] DNA1, float[] DNA2){
     
-    hjerne = new NeuralNetwork(DNA1, DNA2); 
+    hjerne = new dnaNeuralNetwork(DNA1, DNA2); 
   }
       
   void update() {
