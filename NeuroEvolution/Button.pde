@@ -81,6 +81,7 @@ class Button {
             trackImage.resize(width, height);
             displayImage = loadImage(track);
             displayImage.resize(width/2,height/2);
+            btn4 = new Button(width/2, height*3/4, 200, 80, "Track " + currentTrack, 4);
             println("track_"+currentTrack);
 
             selected = false;
@@ -89,6 +90,7 @@ class Button {
             println("Track 1");
             currentTrack=1;
             String track = "track_" + currentTrack + ".png";
+            btn4 = new Button(width/2, height*3/4, 200, 80, "Track " + currentTrack, 4);
             
             trackImage = loadImage(track);
             displayImage = loadImage(track);
