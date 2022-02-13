@@ -19,6 +19,6 @@ Sensorsystemet er for alle biler, selv også dem som ikke bruges af vores neural
 Her kan der opdages væggene altså vejens kanter, hvor vi den kan opdage om den crasher.
 
 #### Vehicle:
-Vores biler indeholder en position, hastighed og de bliver også dislayed. 
+Vores biler indeholder en position og hastighed, hvor de også kan dreje til venstre og højre 
 
 #### Population:
